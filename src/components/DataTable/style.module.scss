@@ -1,0 +1,39 @@
+.root {
+	position: absolute;
+	inset: 0;
+}
+
+.table {
+	-webkit-user-select: text;
+	user-select: text;
+
+	th {
+		background-color: var(--mantine-color-body);
+		color: var(--mantine-color-bright);
+		text-align: start;
+		position: sticky;
+		top: 0;
+	}
+
+	tbody tr:nth-child(odd) {
+		background-color: rgba(255, 255, 255, 0.05);
+	}
+
+	th > *, td > * {
+		padding-inline: 8px !important;
+	}
+
+	th:first-child > *, td:first-child > * {
+		padding-inline-start: 0;
+	}
+
+	th:last-child > *, td:last-child > * {
+		padding-inline-end: 0;
+	}
+}
+
+.table-value {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}

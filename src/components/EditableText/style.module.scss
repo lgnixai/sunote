@@ -1,0 +1,9 @@
+.root {
+	min-width: 20px;
+	text-align: start;
+	outline: none;
+}
+
+.decorate:focus {
+	font-style: italic;
+}

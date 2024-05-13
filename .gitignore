@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.idea/
+
+.hintrc
+
+.DS_Store
+
+/src/generated

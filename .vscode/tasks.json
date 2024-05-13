@@ -1,0 +1,35 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "tauri:dev",
+			"label": "Development",
+			"detail": "Run tauri dev"
+		},
+		{
+			"type": "npm",
+			"script": "tauri:build",
+			"label": "Release build",
+			"detail": "Run tauri build"
+		},
+		{
+			"type": "npm",
+			"script": "lint",
+			"label": "Lint",
+			"detail": "Run the linter",
+			"icon": {
+				"id": "vm-running"
+			}
+		},
+		{
+			"type": "npm",
+			"script": "lint:fix",
+			"label": "Lint and fix",
+			"detail": "Run the linter and fix issues",
+			"icon": {
+				"id": "vm-running"
+			}
+		}
+	]
+}
