@@ -60,7 +60,7 @@ import { promptChangelog } from "./util/changelogs";
 	// }
 
 	// NOTE Temporary until react flow is fixed
-	document.body.addEventListener('keydown', e => e.stopPropagation());
+	//document.body.addEventListener('keydown', e => e.stopPropagation());
 
 	// Check for new release
 	promptChangelog();

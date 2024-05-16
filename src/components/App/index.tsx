@@ -19,6 +19,7 @@ import { useUrlHandler } from "~/hooks/url";
 import { AppErrorHandler } from "./error";
 import { useConfigStore } from "~/stores/config";
 import { SANDBOX } from "~/constants";
+import {EditorProvider} from "~/views/note/FunctionsPanel/note/components/EditorProvider";
 
 export function App() {
 	const { hideAvailableUpdate } = useInterfaceStore.getState();
@@ -47,6 +48,7 @@ export function App() {
 
 	return (
 		<FeatureFlagsProvider>
+
 			<MantineProvider
 				withCssVariables
 				theme={MANTINE_THEME}
@@ -110,6 +112,7 @@ export function App() {
 					)}
 				</Transition>
 			</MantineProvider>
+
 		</FeatureFlagsProvider>
 	);
 }

@@ -23,7 +23,9 @@ export type AuthMode =
 	| "scope-signup";
 export type ViewMode =
 	| "chat"
+	| "note"
 	| "knowledge"
+	| "rss"
 	| "query"
 	| "explorer"
 	| "designer"
@@ -242,6 +244,30 @@ export interface SchemaUser {
 	name: string;
 	comment: string;
 	roles: string[];
+}
+
+export interface SchemaFeed {
+	id:string;
+	url: string;
+	title:string;
+	description:string;
+	link:string;
+	feed_link:string;
+	icon:string;
+	size:number;
+
+}
+
+export interface SchemaFeedItem {
+	id:string;
+	guid:string;
+	feed_id:string;
+	title:string;
+	link:string;
+	status:string;
+	image:string;
+	podcast_url:string;
+	content:string;
 }
 
 export interface SchemaScope {

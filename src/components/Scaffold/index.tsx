@@ -47,6 +47,8 @@ import { EmbedderModal } from "./modals/embedder";
 import {ChatView} from "~/views/chat/ChatView";
 import {ChatCreator} from "~/components/Scaffold/modals/chat";
 import {KnowledgeView} from "~/views/knowledge/KnowledgeView";
+import {RssView} from "~/views/rss/RssView";
+import {NoteView} from "~/views/note/NoteView";
 
 const PORTAL_ATTRS = {
 	attributes: {
@@ -56,6 +58,8 @@ const PORTAL_ATTRS = {
 
 const VIEW_PORTALS: Record<ViewMode, HtmlPortalNode> = {
 	chat: createHtmlPortalNode(PORTAL_ATTRS),
+	rss: createHtmlPortalNode(PORTAL_ATTRS),
+	note: createHtmlPortalNode(PORTAL_ATTRS),
 	knowledge: createHtmlPortalNode(PORTAL_ATTRS),
 	query: createHtmlPortalNode(PORTAL_ATTRS),
 	explorer: createHtmlPortalNode(PORTAL_ATTRS),
@@ -154,13 +158,19 @@ export function Scaffold() {
 								{viewNode && <OutPortal node={viewNode} />}
 							</Box>
 						</Box>
-
+						<InPortal node={VIEW_PORTALS.rss}>
+							<RssView />
+						</InPortal>
 						<InPortal node={VIEW_PORTALS.chat}>
 							<ChatView />
 						</InPortal>
 
 						<InPortal node={VIEW_PORTALS.knowledge}>
 							<KnowledgeView />
+						</InPortal>
+
+						<InPortal node={VIEW_PORTALS.note}>
+							<NoteView />
 						</InPortal>
 
 						<InPortal node={VIEW_PORTALS.query}>

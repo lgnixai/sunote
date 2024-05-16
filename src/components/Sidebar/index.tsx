@@ -26,7 +26,9 @@ import {ConnectionsLogo} from "~/components/Toolbar/components/Connections/logo"
 
 const NAVIGATION: ViewMode[][] = [
 	[
+		"rss",
 		"chat",
+		"note",
 		"knowledge",
 	],
 	[

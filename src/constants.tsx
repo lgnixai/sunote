@@ -106,12 +106,25 @@ export const VIEW_MODES: Record<ViewMode, ViewInfo> = {
 		anim: queryIcon,
 		desc: "Ai 聊天",
 	},
+	rss: {
+		id: "rss",
+		name: "rss",
+		icon: iconFunction,
+		desc: "rss",
+	},
 	knowledge: {
 		id: "knowledge",
 		name: "Knowledge",
 		icon: iconDesigner,
 		anim: designerIcon,
 		desc: "知识库",
+	},
+	note: {
+		id: "note",
+		name: "note",
+		icon: iconExplorer,
+		anim: explorerIcon,
+		desc: "笔记",
 	},
 	query: {
 		id: "query",
