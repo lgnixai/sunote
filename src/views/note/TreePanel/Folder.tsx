@@ -10,6 +10,7 @@ import {
   VscTrash,
 } from "react-icons/vsc";
 import {useEditor} from "~/views/note/EditorPanel/editor/context";
+import {useNoteStore} from "~/stores/note";
 
 const Folder = ({
   handleInsertNode,
@@ -20,7 +21,7 @@ const Folder = ({
 }) => {
 
 
-	const { editor, collection, provider } = useEditor()!;
+	const { editor,collection,provider } = useNoteStore.getState();
 
 	const [nodeName, setNodeName] = useState(
     explorerData?.name ? explorerData.name : ""
@@ -87,6 +88,7 @@ const Folder = ({
     console.log("nodeName", nodeName);
     return (
       <div>
+		  <>{}</>
         <div
           className="folder"
           style={{ cursor: "pointer" }}

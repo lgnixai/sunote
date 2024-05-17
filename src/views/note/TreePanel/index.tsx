@@ -9,17 +9,18 @@ import {useEditor} from "~/views/note/EditorPanel/editor/context";
 import {DocMeta} from "@blocksuite/store";
 import {createDoc as createAndInitDoc} from "~/views/note/EditorPanel/editor/utils";
 import {ComboboxItem, Select} from "@mantine/core";
+import {useNoteStore} from "~/stores/note";
+import WorkSpaceSelect from "~/views/note/TreePanel/WorkSpace";
 
 export default function TreePanel() {
-	const { editor, collection, provider } = useEditor()!;
+	const {workSpace,setWorkSpace, editor,collection,provider } = useNoteStore.getState();
+
+	//const { editor, collection, provider } = useEditor()!;
 	const [docMetaInfos, setDocMetaInfos] = useState<DocMeta[]>([]);
 	const [currentDocId, setCurrentDocId] = useState<string>('');
 
-	const defaultValue:ComboboxItem={
-		value:"demo",
-		label:"Demo"
-	}
-	const [value, setValue] = useState<ComboboxItem | null>(defaultValue);
+
+	const [value, setValue] = useState<ComboboxItem | null>(workSpace);
 
 	useEffect(() => {
 		if (!collection || !editor) return;
@@ -39,9 +40,15 @@ export default function TreePanel() {
 		return () => disposable.forEach(d => d?.dispose());
 	}, [collection, editor]);
 
-	const addDoc = () => {
+	const addDoc = (title:string) => {
 		if (!collection || !provider) return;
-		const doc = createAndInitDoc(collection);
+		const doc = createAndInitDoc(collection,title);
+		//console.log("doc title",title)
+		// doc.collection.setDocMeta(doc.id, {
+		// 	title: title,
+		// });
+		// @ts-ignore
+		//doc.meta?.title=title
 		provider.connect(doc.id);
 		return doc.id
 	};
@@ -74,11 +81,11 @@ export default function TreePanel() {
 	const isConnected = useIsConnected();
 	const db = getDb()
 	const fetchRecords = useStable(async () => {
-		const ws=value?.value
+
 		//const rs = await executeQuery(`select * from tree order by adddate desc limit 1`);
 		//await db.let('ws', value?.value);
 		//let result = await db.query('SELECT * from tree where ws=$ws order by adddate desc limit 1');
-		let result = await db.select(`tree:${ws}`);
+		let result = await db.select(`tree:${workSpace}`);
 		const rs = result[0];
 
 		console.log("=====12323====")
@@ -96,7 +103,7 @@ export default function TreePanel() {
 			// 	adddate:timestamp
 			// });
 
-			let created = await db.create(`tree:${ws}`, {
+			let created = await db.create(`tree:${workSpace}`, {
 				adddate: timestamp,
 				setting: {
 					id: "1",
@@ -110,14 +117,14 @@ export default function TreePanel() {
 	});
 
 	useEffect(() => {
-		console.log(isConnected)
+		console.log(isConnected,workSpace)
 		if (isConnected) {
 			fetchRecords();
 		}
 
-	}, [isConnected,value]);
+	}, [isConnected,workSpace]);
 	const handleInsertNode = (folderId, itemName, isFolder) => {
-		const docid=addDoc()
+		const docid=addDoc(itemName)
 		const finalItem = insertNode(explorerData, folderId, itemName, isFolder,docid);
 		sysTree();
 		provider?.connect(docid)
@@ -141,9 +148,11 @@ export default function TreePanel() {
 
 	const sysTree = useStable(async () => {
 		const timestamp = Date.now();
-		console.log(timestamp)
 
-		let created = await db.update(`tree:${value?.value}`, {
+		console.log("timestamp,workSpace")
+		console.log(timestamp,workSpace)
+
+		let created = await db.update(`tree:${workSpace}`, {
 			adddate: timestamp,
 			setting: explorerData
 		});
@@ -153,24 +162,14 @@ export default function TreePanel() {
 	useEffect(() => {
 		sysTree();
 
-	}, [explorerData]);
+	}, [explorerData,workSpace]);
 
 
-	useEffect(() => {
-		console.log(value)
-		provider?.changeCollection(value?.value)
-	}, [value]);
 
 	return (
-		<div style={{width:430}}>
-			<Select
-				data={
-				[{ value: 'demo', label: 'Demo' },
-					{ value: 'react', label: '读书笔记' },
-					{ value: 'ok', label: '深度思考' }]}
-				value={value ? value.value : null}
-				onChange={(_value, option) => setValue(option)}
-			/>
+		<div  >
+			<WorkSpaceSelect />
+
 
 			<div className="folderContainerBody">
 				<div className="folder-container">

@@ -42,6 +42,28 @@ export class Provider {
 
     return new Provider(wsBaseUrl, collection, metaWs);
   }
+
+  static async start(wsBaseUrl: string,workSpace:string) {
+    const collection = initCollection(workSpace);
+    const metaWs = new WebsocketProvider(
+      wsBaseUrl,
+      collection.id,
+      collection.doc
+    );
+
+    // Make sure all document meta information is loaded.
+    await new Promise<void>((resolve, reject) => {
+      metaWs.once('sync', () => {
+        collection.doc.load();
+        resolve();
+      });
+      metaWs.once('connection-error', () => {
+        reject();
+      });
+    });
+
+    return new Provider(wsBaseUrl, collection, metaWs);
+  }
   changeCollection(work:string){
 	  this.collection=initCollection(work)
   }

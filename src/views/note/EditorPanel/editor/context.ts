@@ -7,6 +7,7 @@ export const EditorContext = createContext<{
   editor: AffineEditorContainer | null;
   collection: DocCollection | null;
   provider: Provider | null;
+
 } | null>(null);
 
 export function useEditor() {

@@ -1,17 +1,12 @@
 import { useEffect, useRef } from 'react';
 import { useEditor } from './editor/context';
+import {useDatabaseStore} from "~/stores/database";
+import {useNoteStore} from "~/stores/note";
 
 export default function NodePanel() {
-	const { editor } = useEditor()!;
-	const editorContainerRef = useRef<HTMLDivElement>(null);
 
-	useEffect(() => {
-		if (editorContainerRef.current && editor) {
-			editorContainerRef.current.innerHTML = '';
-			editorContainerRef.current.appendChild(editor);
-		}
-	}, [editor]);
+	const { setEditor,setProvider } = useNoteStore.getState();
 
-	return <div className="editor-container" style={{height:"600px"}} ref={editorContainerRef}></div>;
+	return <div className="editor-container" style={{height:"600px"}} ref={}></div>;
 };
 

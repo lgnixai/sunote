@@ -16,7 +16,7 @@ import { createRoot } from "react-dom/client";
 import { App } from "./components/App";
 import { updateTitle } from "./util/helpers";
 import { adapter } from "./adapter";
-import { watchColorPreference, watchColorScheme, watchConfigStore, watchConnectionSwitch } from './util/background';
+import { watchColorPreference, watchColorScheme, watchConfigStore,watchNoteStore, watchConnectionSwitch } from './util/background';
 import { generateEditorIcons } from "./util/editor/icons";
 import { isProduction } from "./util/environment";
 import { promptChangelog } from "./util/changelogs";
@@ -34,6 +34,7 @@ import { promptChangelog } from "./util/changelogs";
 
 	// Synchronize the config to the store
 	await watchConfigStore();
+	await watchNoteStore();
 
 	updateTitle();
 	watchColorScheme();

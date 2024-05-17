@@ -6,6 +6,7 @@ import { assign } from "radash";
 import { openConnection } from "~/connection";
 import { featureFlags } from "./feature-flags";
 import { VIEW_MODES } from "~/constants";
+import {useNoteStore} from "~/stores/note";
 
 const savePreference = ({ matches }: { matches: boolean }) => {
 	useInterfaceStore.getState().setColorPreference(matches ? "light" : "dark");
@@ -61,6 +62,19 @@ export async function watchConfigStore() {
 
 	// TODO include a ~300ms debounce
 	useConfigStore.subscribe((state) => {
+		adapter.saveConfig(state);
+	});
+}
+
+export async function watchNoteStore() {
+	const config = await adapter.loadConfig();
+	const merged = assign(useNoteStore.getState(), config);
+
+	useNoteStore.setState(merged);
+
+	// TODO include a ~300ms debounce
+	useNoteStore.subscribe((state) => {
+		console.log("subject:",state)
 		adapter.saveConfig(state);
 	});
 }

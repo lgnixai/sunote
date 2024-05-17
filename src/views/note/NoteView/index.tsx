@@ -27,10 +27,13 @@ import NodePanel from "~/views/note/NotePanel";
  import {SiHtml5} from "react-icons/si";
 import TreePanel from "~/views/note/TreePanel";
 import EditorPanel from "~/views/note/EditorPanel";
+import {useNoteStore} from "~/stores/note";
 
 export function NoteView() {
 	const functions = useSchema()?.functions ?? [];
 	const duplicationRef = useRef<SchemaFunction | null>(null);
+	//const {workSpace,setWorkSpace, editor,collection,provider } = useNoteStore.getState();
+	const workSpace = useNoteStore((state) => state.workSpace)
 
 	const [details, setDetails] = useImmer<SchemaFunction | null>(null);
 	const [isCreating, isCreatingHandle] = useDisclosure();
@@ -132,17 +135,17 @@ export function NoteView() {
 		syncDatabaseSchema();
 	});
 
-	const [minSize, ref] = usePanelMinSize(325);
+	const [minSize, ref] = usePanelMinSize(300);
 
 	return (
 		<>
-			<EditorProvider>
+
 			<Box h="100%" ref={ref}>
 				<PanelGroup direction="horizontal">
 					<Panel
 						defaultSize={minSize}
 						minSize={minSize}
-						maxSize={55}
+						maxSize={35}
 					>
 
 
@@ -150,11 +153,12 @@ export function NoteView() {
 					</Panel>
 					<PanelDragger />
 					<Panel minSize={minSize}>
+
 						 <EditorPanel />
 					</Panel>
 				</PanelGroup>
 			</Box>
-			</EditorProvider>
+
 
 
 		</>

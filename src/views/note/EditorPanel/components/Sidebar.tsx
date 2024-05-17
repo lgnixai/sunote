@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 import { DocMeta } from '@blocksuite/store';
 import { useEditor } from '../editor/context';
 import { createDoc as createAndInitDoc } from '../editor/utils';
+import {useNoteStore} from "~/stores/note";
 
 const Sidebar = () => {
-  const { editor, collection, provider } = useEditor()!;
+  const { editor, collection, provider } = useNoteStore()!;
   const [docMetaInfos, setDocMetaInfos] = useState<DocMeta[]>([]);
   const [currentDocId, setCurrentDocId] = useState<string>('');
 
